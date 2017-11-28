@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>External Cloud Access Request</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div id="page-wrapper" style="margin:0px;">
+
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <div class="row">
+
+                    </div>
+                    <h3 class="display-3 col-sm-10" id="enabledEnvironmentsTitle">Mark's Moustache & Mailto Maker</h3>
+                    <div class="col-md-12 col-lg-12">
+                        <h1 class="page-header">
+                            <center>
+                                <img src="images/banner.png" style="display: block; height: auto; max-width: 100%;" />
+                            </center>
+                        </h1>
+                    </div>
+                    <p class="lead col-md-12" id="motd"></p>
+                </div>
+            </div>
+            <div class="container">
+                <form role="form" id="updateForm" class="col-sm-8">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>Email To address
+                                <span class="fa fa-info-circle" data-toggle="tooltip" title="" data-original-title="The address to which the mailto link should point"></span>
+                            </label>
+                            <div>
+                                <input type="text" id="toaddress" style="width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Subject
+                                <span class="fa fa-info-circle" data-toggle="tooltip" title="" data-original-title="The subject line of the mail"></span>
+                            </label>
+                            <div>
+                                <input type="text" id="subject" style="width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-12">Body of Mail
+                                <span class="fa fa-info-circle" data-toggle="tooltip" title="" data-original-title="Put the body of the mail here"></span>
+                            </label>
+                            <textarea class="form-control col-sm-6" type="textarea" id="body" maxlength="140" rows="6"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:70px;">
+                        <div class="col-md-4 col-md-offset-4" style="margin-top:15px;">
+                            <button type="button" class="btn btn-success btn-lg btn-block span6" id="getmailto">Submit Request</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a href="mailto:test@example.com?subject=my%20subject&body=wait%20for%20the%20warden%0Dhttp%3A%2F%2Flive.com%0Dyeah!">test</a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="javascripts/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+             $("#getmailto").bind("click", function (e) {
+                var mailtoString = 'mailto:' +$('#toaddress').val() + '?subject='
+                var subjectarr = $('#subject').val().split('')
+                var tempsubarr = [];
+                for (i=0; i < subjectarr.length; i++){
+                     var pushed = false
+                     if (subjectarr[i] == '\n' ) {
+                         tempsubarr.push('%0D')
+                         pushed = true
+                         }
+                     if (subjectarr[i] == '/' ) {
+                         tempsubarr.push('%2F')
+                         pushed = true
+                         }
+                     if (subjectarr[i] == ' ' ) {
+                         tempsubarr.push('%20')
+                         pushed = true
+                         }
+                     if (subjectarr[i] == ':' ) {
+                         tempsubarr.push('%3A')
+                         pushed = true
+                         }
+                    if (!pushed) {tempsubarr.push(subjectarr[i])}
+                 }
+                 mailtoString = mailtoString +tempsubarr.join('')
+                 var mailtoArr = $('#body').val().split('')
+                 var temparr = [];
+                 for (i=0; i < mailtoArr.length; i++){
+                     var pushed = false
+                     if (mailtoArr[i] == '\n' ) {
+                         temparr.push('%0D')
+                         pushed = true
+                         }
+                     if (mailtoArr[i] == '/' ) {
+                         temparr.push('%2F')
+                         pushed = true
+                         }
+                     if (mailtoArr[i] == ' ' ) {
+                         temparr.push('%20')
+                         pushed = true
+                         }
+                     if (mailtoArr[i] == ':' ) {
+                         temparr.push('%3A')
+                         pushed = true
+                         }
+                    if (!pushed) {temparr.push(mailtoArr[i])}
+                 }
+
+                 mailtoString = mailtoString + '&body='+temparr.join('')
+                  $('#motd').html(
+                        mailtoString
+                    );
+             })
+        })
+    </script>
+
+
+
+</body>
+
+</html>
