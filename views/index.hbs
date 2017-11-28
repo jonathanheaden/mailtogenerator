@@ -45,6 +45,7 @@
                         </h1>
                     </div>
                     <p class="lead col-md-12" id="motd"></p>
+                      <h3 class="display-3" id="tester" style="display:none"></h3>
                 </div>
             </div>
             <div class="container">
@@ -83,7 +84,7 @@
                 </form>
             </div>
         </div>
-        <a href="mailto:test@example.com?subject=my%20subject&body=wait%20for%20the%20warden%0Dhttp%3A%2F%2Flive.com%0Dyeah!">test</a>
+      
     </div>
 
     <!-- jQuery -->
@@ -145,6 +146,8 @@
                   $('#motd').html(
                         mailtoString
                     );
+                    $('#tester').html('<a href="'+mailtoString+'">test</a>')
+                    $('#tester').show()
              })
         })
     </script>
