@@ -104,6 +104,14 @@
                          tempsubarr.push('%0D')
                          pushed = true
                          }
+                    if (mailtoArr[i] == '&' ) {
+                         temparr.push('%26')
+                         pushed = true
+                         }
+                    if (mailtoArr[i] == '?' ) {
+                         temparr.push('%3F')
+                         pushed = true
+                         }   
                      if (subjectarr[i] == '/' ) {
                          tempsubarr.push('%2F')
                          pushed = true
@@ -127,6 +135,14 @@
                          temparr.push('%0D')
                          pushed = true
                          }
+                    if (mailtoArr[i] == '&' ) {
+                         temparr.push('%26')
+                         pushed = true
+                         }
+                    if (mailtoArr[i] == '?' ) {
+                         temparr.push('%3F')
+                         pushed = true
+                         }     
                      if (mailtoArr[i] == '/' ) {
                          temparr.push('%2F')
                          pushed = true
