@@ -95,70 +95,7 @@
         $(window).load(function () {
             $('[data-toggle="tooltip"]').tooltip();
              $("#getmailto").bind("click", function (e) {
-                var mailtoString = 'mailto:' +$('#toaddress').val() + '?subject='
-                var subjectarr = $('#subject').val().split('')
-                var tempsubarr = [];
-                for (i=0; i < subjectarr.length; i++){
-                     var pushed = false
-                     if (subjectarr[i] == '\n' ) {
-                         tempsubarr.push('%0D')
-                         pushed = true
-                         }
-                    if (subjectarr[i] == '&' ) {
-                         subjectarr.push('%26')
-                         pushed = true
-                         }
-                    if (subjectarr[i] == '?' ) {
-                         subjectarr.push('%3F')
-                         pushed = true
-                         }   
-                     if (subjectarr[i] == '/' ) {
-                         tempsubarr.push('%2F')
-                         pushed = true
-                         }
-                     if (subjectarr[i] == ' ' ) {
-                         tempsubarr.push('%20')
-                         pushed = true
-                         }
-                     if (subjectarr[i] == ':' ) {
-                         tempsubarr.push('%3A')
-                         pushed = true
-                         }
-                    if (!pushed) {tempsubarr.push(subjectarr[i])}
-                 }
-                 mailtoString = mailtoString +tempsubarr.join('')
-                 var mailtoArr = $('#body').val().split('')
-                 var temparr = [];
-                 for (i=0; i < mailtoArr.length; i++){
-                     var pushed = false
-                     if (mailtoArr[i] == '\n' ) {
-                         temparr.push('%0D')
-                         pushed = true
-                         }
-                    if (mailtoArr[i] == '&' ) {
-                         temparr.push('%26')
-                         pushed = true
-                         }
-                    if (mailtoArr[i] == '?' ) {
-                         temparr.push('%3F')
-                         pushed = true
-                         }     
-                     if (mailtoArr[i] == '/' ) {
-                         temparr.push('%2F')
-                         pushed = true
-                         }
-                     if (mailtoArr[i] == ' ' ) {
-                         temparr.push('%20')
-                         pushed = true
-                         }
-                     if (mailtoArr[i] == ':' ) {
-                         temparr.push('%3A')
-                         pushed = true
-                         }
-                    if (!pushed) {temparr.push(mailtoArr[i])}
-                 }
-
-                 mailtoString = mailtoString + '&body='+temparr.join('')
+                var mailtoString = 'mailto:' +$('#toaddress').val() + '?subject='+ encodeURIComponent($('#subject').val()) +'&body='+ encodeURIComponent($('#body').val())                             
                   $('#motd').html(
                         mailtoString
                     );
